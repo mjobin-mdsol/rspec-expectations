@@ -154,7 +154,7 @@ module RSpec
 
           return unless expression
 
-          warn_about_negative_false_positive! expression
+          raise_on_negative_false_positive! expression
         end
 
         def handle_warning(message)
@@ -195,8 +195,8 @@ module RSpec
                          "_positives = :nothing`")
         end
 
-        def warn_about_negative_false_positive!(expression)
-          handle_warning("Using #{expression} risks false positives, since literally " \
+        def raise_on_negative_false_positive!(expression)
+          raise("Using #{expression} risks false positives, since literally " \
                          "any other error would cause the expectation to pass, " \
                          "including those raised by Ruby (e.g. `NoMethodError`, `NameError` " \
                          "and `ArgumentError`), meaning the code you are intending to test " \
